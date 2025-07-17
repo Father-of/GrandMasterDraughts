@@ -9,6 +9,7 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -28,6 +29,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.RejectedExecutionException;
 
 public class GameView extends View {
+    // --- Constantes du jeu ---
     private static final int BOARD_SIZE = 8;
     private static final int MIN_BOARD_MARGIN = 30;
     private static final int FRAME_PADDING = 10;
@@ -56,7 +58,7 @@ public class GameView extends View {
     private List<List<int[]>> validMoves = new ArrayList<>();
     private boolean isWhiteTurn = true;
     private boolean gameEnded = false;
-    private final Handler handler = new Handler();
+    private final Handler handler = new Handler(Looper.getMainLooper());
     private final Stack<GameState> moveHistory = new Stack<>();
     private boolean isBoardFlipped = false;
     private boolean aiStartsFirst = false;
@@ -67,6 +69,7 @@ public class GameView extends View {
     private int userWins = 0;
     private final long[][][] zobristTable = new long[BOARD_SIZE][BOARD_SIZE][5];
 
+    // --- MOTEUR D'IA ---
     private static final int MAX_AI_SEARCH_DEPTH = 22;
     private static final long AI_THINKING_TIME_MS = 10000L;
     private static final int KING_VALUE = 7;
@@ -983,5 +986,4 @@ public class GameView extends View {
         }
         return copy;
     }
-}```
-          
+            }
