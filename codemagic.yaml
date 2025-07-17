@@ -7,9 +7,8 @@ workflows:
       groups:
         - android-sdk
     scripts:
-      - name: Build Android App
-        script: | 
-          cd app
-          ./gradlew assembleRelease
+  - name: Build Android App
+    script: |
+      ./gradlew assembleRelease
     artifacts:
       - app/build/outputs/apk/release/*.apk
