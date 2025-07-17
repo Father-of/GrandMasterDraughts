@@ -1,14 +1,15 @@
-# Fichier : codemagic.yaml
+# Fichier : codemagic.yaml (Version Corrigée)
 workflows:
-  android-app:
-    name: Android App
+  android-workflow:
+    name: Android Workflow
+    instance_type: mac_mini_m1
     environment:
-      android_sdk_version: '33'
-      java_version: '11'
+      groups:
+        - android-sdk
     scripts:
       - name: Build Android App
-        script: |
-          cd ./app
+        script: | 
+          cd app
           ./gradlew assembleRelease
     artifacts:
-      - app/build/outputs/apk/release/app-release.ap
+      - app/build/outputs/apk/release/*.apk
