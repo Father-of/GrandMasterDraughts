@@ -1,0 +1,14 @@
+# Fichier : codemagic.yaml
+workflows:
+  android-app:
+    name: Android App
+    environment:
+      android_sdk_version: '33'
+      java_version: '11'
+    scripts:
+      - name: Build Android App
+        script: |
+          cd ./app
+          ./gradlew assembleRelease
+    artifacts:
+      - app/build/outputs/apk/release/app-release.ap
