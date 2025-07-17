@@ -1,15 +1,24 @@
 # Fichier : codemagic.yaml (Version Corrigée)
+# Ce fichier configure le workflow de build pour Codemagic.
+
 workflows:
+  # Nom du workflow, peut être ce que vous voulez.
   android-workflow:
     name: Android Workflow
+    # Type d'instance pour la machine de build. mac_mini_m1 est un bon choix pour Android.
     instance_type: mac_mini_m1
     environment:
       groups:
+        # Assure que le SDK Android est préinstallé.
         - android-sdk
     scripts:
-  - name: Build Android App
-  script: |
-  cd app
-  ./gradlew assembleRelease
+      - name: Set up Gradle wrapper
+        script: chmod +x ./gradlew
+      - name: Build Android App
+        # La commande est exécutée depuis la racine du projet.
+        # Il n'est pas nécessaire de faire 'cd app'.
+        # Gradle trouvera automatiquement le module :app.
+        script: ./gradlew assembleRelease
     artifacts:
+      # Chemin pour trouver l'APK généré après un build réussi.
       - app/build/outputs/apk/release/*.apk
